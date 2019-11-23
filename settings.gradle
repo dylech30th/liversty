@@ -1,0 +1,4 @@
+rootProject.name = 'liversty'
+include 'liversty-core'
+include 'liversty-comikaze'
+
