@@ -1,13 +1,11 @@
 package me.lovemurasame.dylech30th
 
-import io.ktor.util.KtorExperimentalAPI
-import kotlinx.coroutines.runBlocking
+import me.lovemurasame.dylech30th.config.Env
 import me.lovemurasame.dylech30th.service.IInitService
 import me.lovemurasame.dylech30th.init.ComicHomeCachingInitService
 import me.lovemurasame.dylech30th.init.ComicHomeDatabaseInitService
 import me.lovemurasame.dylech30th.init.ComicHomeLocalFileComparatorInitService
-import org.jetbrains.exposed.sql.transactions.transaction
-import kotlin.contracts.ExperimentalContracts
+import me.lovemurasame.dylech30th.resources.Init
 import kotlin.coroutines.CoroutineContext
 
 internal object Injector {
@@ -15,25 +13,13 @@ internal object Injector {
             ComicHomeCachingInitService::class.java,
             ComicHomeDatabaseInitService::class.java,
             ComicHomeLocalFileComparatorInitService::class.java
-    )
+    ).sortedBy { it.getAnnotation(Init::class.java).priority }
 
     suspend fun beforeServiceStart(coroutineContext: CoroutineContext) {
+        println("Comikaze: 正在初始化服务")
         for (clazz in initList) {
             (clazz.getConstructor(CoroutineContext::class.java).newInstance(coroutineContext) as IInitService).doInit()
         }
+        Env.COMIKAZE_LOGGER.log("服务初始化完成! 您可以使用了")
     }
-}
-
-@KtorExperimentalAPI
-@ExperimentalContracts
-fun main() = runBlocking {
-    Injector.beforeServiceStart(coroutineContext)
-    try {
-        transaction(ProjectDatabase) {
-            SubscriptionMarkedComicEntity.new("摇曳百合", "https://manhua.dmzj.com/yaoyebaihe")
-        }
-    } catch (ignored: UnsupportedOperationException) {
-    }
-
-    ComicHomeLocalSyncService(coroutineContext).pull()
 }

@@ -16,6 +16,7 @@ import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CopyOnWriteArraySet
 import kotlin.contracts.ExperimentalContracts
 import kotlin.coroutines.CoroutineContext
+import kotlin.math.abs
 
 private typealias UnaryPair<T> = Pair<T, T>
 private typealias FixedChapters = List<ComicHomeComicChapter>
@@ -32,7 +33,9 @@ class ComicHomeLocalSyncService(override val coroutineContext: CoroutineContext)
         val fetchRequires = transaction(ProjectDatabase) {
             SubscriptionMarkedComicEntity.all().distinctBy { it.name }
         }
+        Env.COMIKAZE_LOGGER.log("正在获取待更新列表...")
         val updateRequired = updateRequired(fetchRequires.map { async(Dispatchers.IO) { fetchService.fetch(it.name) } }.awaitAll().flatten())
+        Env.COMIKAZE_LOGGER.log(ternary(updateRequired.size == 0, "没有需要更新的项", "待更新列表获取完成"))
         for ((name, old, new) in updateRequired) {
             incrementInternal(name, new.subtract(old))
         }
@@ -40,6 +43,7 @@ class ComicHomeLocalSyncService(override val coroutineContext: CoroutineContext)
 
     @KtorExperimentalAPI
     private suspend fun incrementInternal(name: String, c: Set<ComicHomeComicChapter>) {
+        Env.COMIKAZE_LOGGER.log("正在同步漫画: $name 到本地")
         val success = downloadChapter(c)
         transaction(ProjectDatabase) {
             with(SynchronizedComicEntity.find { Comic.name eq name }.firstOrNull()) {
@@ -51,6 +55,7 @@ class ComicHomeLocalSyncService(override val coroutineContext: CoroutineContext)
                 }
             }
         }
+        Env.COMIKAZE_LOGGER.log("漫画: $name 同步完成!")
     }
 
     override suspend fun updateRequired(entities: Any): ContentsMap {
@@ -68,11 +73,23 @@ class ComicHomeLocalSyncService(override val coroutineContext: CoroutineContext)
     private fun ContentsMap.addFilterRequiredContents(subscribeName: String, newContents: FixedChapters): Job = launch(Dispatchers.IO) {
         transaction(ProjectDatabase) {
             with(SynchronizedComicEntity.find { Comic.name eq subscribeName }.firstOrNull()) {
-                if (this == null) this@addFilterRequiredContents[subscribeName] = immutableListOf<ComicHomeComicChapter>() to newContents
+                if (this == null) {
+                    Env.COMIKAZE_LOGGER.log("将 $subscribeName 的所有章节添加到更新列表")
+                    this@addFilterRequiredContents[subscribeName] = immutableListOf<ComicHomeComicChapter>() to newContents
+                }
                 else {
                     val oldContents = imageContents.fromJson<FixedChapters>()
                     if (!oldContents.sizeEquals(newContents)) {
+                        Env.COMIKAZE_LOGGER.log("将 $subscribeName 的 ${abs(newContents.size - oldContents.size)} 个章节添加到更新列表")
                         this@addFilterRequiredContents[subscribeName] = oldContents to newContents
+                    } else {
+                        for (o in oldContents) {
+                            val chapter = newContents.first { it.chapterName == o.chapterName }
+                            val imgSrc = chapter.imageContents.imageUrls.subtract(o.imageContents.imageUrls)
+                            if (imgSrc.isNotEmpty()) {
+                                this@addFilterRequiredContents[subscribeName] = oldContents to newContents
+                            }
+                        }
                     }
                 }
             }
@@ -98,7 +115,7 @@ class ComicHomeLocalSyncService(override val coroutineContext: CoroutineContext)
                     try {
                         saveUrlContent(s, getPath(path, "$index.jpg"))
                         updateProgressString(urls.size.toLong(), buildProgress(chapterName))
-                    } catch (e: Exception) { Env.COMIKAZE_LOGGER.logPrefixed("\n", "在下载章节 $chapterName 时出现异常: ${e.message}") }
+                    } catch (e: Exception) { Env.COMIKAZE_LOGGER.errPrefixed("\n", "在下载章节 $chapterName 时出现异常: ${e.message}") }
                 } }.joinAll()
                 set.add(ComicHomeComicChapter(subscribeName, chapterName, imageContents))
             }

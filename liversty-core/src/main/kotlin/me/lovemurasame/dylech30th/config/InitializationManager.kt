@@ -1,3 +1,5 @@
+@file:Suppress("MemberVisibilityCanBePrivate")
+
 package me.lovemurasame.dylech30th.config
 
 import me.lovemurasame.dylech30th.resources.Registry
@@ -149,6 +151,15 @@ class InitializationManager : Closeable, IPrimitiveWritable, Flushable {
 
     override fun tryGetWithEntryDefault(reg: Registry): Any {
         return tryGetDefault(reg.key, reg.value)
+    }
+
+    fun clear() {
+        keyValuePairs.clear()
+    }
+
+    fun remove(key: String) {
+        ensureKeyRegistered(key)
+        keyValuePairs.remove(key)
     }
 
     inner class KeyNotFoundException : Exception {

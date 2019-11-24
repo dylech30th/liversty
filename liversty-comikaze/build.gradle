@@ -6,6 +6,7 @@ dependencies {
     compile project(":liversty-core")
     compile group: 'org.jsoup', name: 'jsoup', version: '1.12.1'
     compile group: 'io.ktor', name: 'ktor-client-cio', version: '1.2.5'
+    compile group: 'com.github.ajalt', name: 'clikt', version: '2.3.0'
 }
 
 compileKotlin {

@@ -11,7 +11,7 @@ internal object ComicHomeConfKeys {
 
     val ComicConfReg = registryOf("comichome", getPath(projectConfigurationPath(PROJECT_NAME), "comic_home.ini"))
 
-    val DefaultComicImagesLocationReg = registryOf("downloadpath", getPath(profilePath("my pictures"), PROJECT_NAME))
+    val DefaultComicImagesLocationReg = registryOf("comikaze.download", getPath(profilePath("my pictures"), PROJECT_NAME))
 
-    val DefaultLoggerReg = registryOf("logger", StdOutputComikazeLogger::class.java.name)
+    val DefaultLoggerReg = registryOf("comikaze.logger", StdOutputComikazeLogger::class.java.name)
 }

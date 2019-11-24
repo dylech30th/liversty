@@ -19,6 +19,8 @@ suspend fun HttpClientCall.saveContent(path: String) {
 
 @KtorExperimentalAPI
 suspend fun saveUrlContent(url: String, path: String) {
+    if (exist(path))
+        return
     HttpClient(CIO).call {
         url(url)
         HttpMethod.Get

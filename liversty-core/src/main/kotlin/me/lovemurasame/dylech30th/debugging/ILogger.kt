@@ -15,5 +15,9 @@ interface ILogger {
 
     fun log(content: String)
 
+    fun err(content: String)
+
+    fun errPrefixed(prefix: String, content: String)
+
     fun logPrefixed(prefix: String, content: String) = log("$prefix$content")
 }
