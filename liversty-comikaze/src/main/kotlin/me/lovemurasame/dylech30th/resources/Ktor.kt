@@ -1,4 +1,4 @@
-package me.lovemursame.dylech30th.resources
+package me.lovemurasame.dylech30th.resources
 
 import io.ktor.client.HttpClient
 import io.ktor.client.call.HttpClientCall

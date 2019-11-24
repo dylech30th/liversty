@@ -1,8 +1,8 @@
-package me.lovemursame.dylech30th.session
+package me.lovemurasame.dylech30th.session
 
-import me.lovemursame.dylech30th.ProjectDatabase
-import me.lovemursame.dylech30th.SynchronizedComicEntity
-import me.lovemursame.dylech30th.SubscriptionMarkedComicEntity
+import me.lovemurasame.dylech30th.ProjectDatabase
+import me.lovemurasame.dylech30th.SynchronizedComicEntity
+import me.lovemurasame.dylech30th.SubscriptionMarkedComicEntity
 import org.jetbrains.exposed.sql.transactions.transaction
 
 object DatabaseHanding {

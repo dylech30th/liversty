@@ -1,9 +1,9 @@
-package me.lovemursame.dylech30th.init
+package me.lovemurasame.dylech30th.init
 
 import me.lovemurasame.dylech30th.config.InitializationManager
 import me.lovemurasame.dylech30th.resources.*
 import me.lovemurasame.dylech30th.service.IInitService
-import me.lovemursame.dylech30th.config.ComicHomeConfKeys
+import me.lovemurasame.dylech30th.config.ComicHomeConfKeys
 import kotlin.coroutines.CoroutineContext
 
 @Init(InitPriority.HIGHEST)

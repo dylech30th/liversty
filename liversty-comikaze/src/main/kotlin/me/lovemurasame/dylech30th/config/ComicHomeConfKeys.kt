@@ -1,10 +1,10 @@
-package me.lovemursame.dylech30th.config
+package me.lovemurasame.dylech30th.config
 
 import me.lovemurasame.dylech30th.resources.getPath
 import me.lovemurasame.dylech30th.resources.profilePath
 import me.lovemurasame.dylech30th.resources.projectConfigurationPath
 import me.lovemurasame.dylech30th.resources.registryOf
-import me.lovemursame.dylech30th.StdOutputComikazeLogger
+import me.lovemurasame.dylech30th.StdOutputComikazeLogger
 
 internal object ComicHomeConfKeys {
     const val PROJECT_NAME = "comikaze"

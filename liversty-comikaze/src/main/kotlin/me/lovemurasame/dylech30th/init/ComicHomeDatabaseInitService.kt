@@ -1,11 +1,11 @@
-package me.lovemursame.dylech30th.init
+package me.lovemurasame.dylech30th.init
 
 import me.lovemurasame.dylech30th.resources.Init
 import me.lovemurasame.dylech30th.resources.InitPriority
 import me.lovemurasame.dylech30th.service.IInitService
-import me.lovemursame.dylech30th.Comic
-import me.lovemursame.dylech30th.ComicSubscription
-import me.lovemursame.dylech30th.ProjectDatabase
+import me.lovemurasame.dylech30th.Comic
+import me.lovemurasame.dylech30th.ComicSubscription
+import me.lovemurasame.dylech30th.ProjectDatabase
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.Slf4jSqlDebugLogger
 import org.jetbrains.exposed.sql.addLogger

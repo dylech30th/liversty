@@ -1,4 +1,4 @@
-package me.lovemursame.dylech30th
+package me.lovemurasame.dylech30th
 
 import me.lovemurasame.dylech30th.debugging.ILogger
 

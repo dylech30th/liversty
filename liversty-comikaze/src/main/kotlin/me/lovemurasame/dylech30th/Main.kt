@@ -1,10 +1,11 @@
-package me.lovemursame.dylech30th
+package me.lovemurasame.dylech30th
+
 import io.ktor.util.KtorExperimentalAPI
 import kotlinx.coroutines.runBlocking
 import me.lovemurasame.dylech30th.service.IInitService
-import me.lovemursame.dylech30th.init.ComicHomeCachingInitService
-import me.lovemursame.dylech30th.init.ComicHomeDatabaseInitService
-import me.lovemursame.dylech30th.init.ComicHomeLocalFileComparatorInitService
+import me.lovemurasame.dylech30th.init.ComicHomeCachingInitService
+import me.lovemurasame.dylech30th.init.ComicHomeDatabaseInitService
+import me.lovemurasame.dylech30th.init.ComicHomeLocalFileComparatorInitService
 import org.jetbrains.exposed.sql.transactions.transaction
 import kotlin.contracts.ExperimentalContracts
 import kotlin.coroutines.CoroutineContext

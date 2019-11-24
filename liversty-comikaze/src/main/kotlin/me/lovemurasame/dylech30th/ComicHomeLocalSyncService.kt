@@ -1,4 +1,4 @@
-package me.lovemursame.dylech30th
+package me.lovemurasame.dylech30th
 
 import com.google.common.collect.ImmutableList
 import io.ktor.util.KtorExperimentalAPI
@@ -7,9 +7,9 @@ import me.lovemurasame.dylech30th.config.InitializationManager
 import me.lovemurasame.dylech30th.resources.*
 import me.lovemurasame.dylech30th.service.IFetchService
 import me.lovemurasame.dylech30th.service.SyncService
-import me.lovemursame.dylech30th.config.ComicHomeConfKeys
-import me.lovemursame.dylech30th.config.Env
-import me.lovemursame.dylech30th.resources.saveUrlContent
+import me.lovemurasame.dylech30th.config.ComicHomeConfKeys
+import me.lovemurasame.dylech30th.config.Env
+import me.lovemurasame.dylech30th.resources.saveUrlContent
 import org.jetbrains.exposed.sql.transactions.transaction
 import java.lang.Exception
 import java.util.concurrent.ConcurrentHashMap

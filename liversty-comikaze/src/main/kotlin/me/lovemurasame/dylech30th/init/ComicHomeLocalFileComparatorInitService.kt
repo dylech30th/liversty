@@ -1,16 +1,17 @@
-package me.lovemursame.dylech30th.init
+package me.lovemurasame.dylech30th.init
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
+import me.lovemurasame.dylech30th.*
 import me.lovemurasame.dylech30th.config.InitializationManager
 import me.lovemurasame.dylech30th.resources.*
 import me.lovemurasame.dylech30th.service.IInitService
 import me.lovemursame.dylech30th.*
-import me.lovemursame.dylech30th.config.ComicHomeConfKeys
-import me.lovemursame.dylech30th.config.Env
-import me.lovemursame.dylech30th.session.DatabaseHanding
+import me.lovemurasame.dylech30th.config.ComicHomeConfKeys
+import me.lovemurasame.dylech30th.config.Env
+import me.lovemurasame.dylech30th.session.DatabaseHanding
 import org.jetbrains.exposed.sql.transactions.transaction
 import java.io.File
 import java.util.concurrent.CopyOnWriteArraySet

@@ -1,4 +1,4 @@
-package me.lovemursame.dylech30th.config
+package me.lovemurasame.dylech30th.config
 
 import me.lovemurasame.dylech30th.config.InitializationManager
 import me.lovemurasame.dylech30th.debugging.ILogger

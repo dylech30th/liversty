@@ -1,8 +1,8 @@
-package me.lovemursame.dylech30th
+package me.lovemurasame.dylech30th
 
 import me.lovemurasame.dylech30th.resources.getPath
 import me.lovemurasame.dylech30th.resources.localAppData
-import me.lovemursame.dylech30th.config.ComicHomeConfKeys
+import me.lovemurasame.dylech30th.config.ComicHomeConfKeys
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.transactions.TransactionManager
 import java.sql.Connection
