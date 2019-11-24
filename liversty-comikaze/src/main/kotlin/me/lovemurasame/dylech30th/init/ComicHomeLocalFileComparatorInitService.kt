@@ -8,7 +8,6 @@ import me.lovemurasame.dylech30th.*
 import me.lovemurasame.dylech30th.config.InitializationManager
 import me.lovemurasame.dylech30th.resources.*
 import me.lovemurasame.dylech30th.service.IInitService
-import me.lovemursame.dylech30th.*
 import me.lovemurasame.dylech30th.config.ComicHomeConfKeys
 import me.lovemurasame.dylech30th.config.Env
 import me.lovemurasame.dylech30th.session.DatabaseHanding
@@ -72,7 +71,6 @@ class ComicHomeLocalFileComparatorInitService(override val coroutineContext: Cor
                             val job = launch(Dispatchers.IO) {
                                 val imgContents = s.imageContents.fromJson<MutableList<ComicHomeComicChapter>>()
                                 if (this@with.count() > imgContents.count()) {
-
                                     val subtracted = map { it.name }.subtract(imgContents.map { it.chapterName })
                                     filter { subtracted.contains(it.name) }.forEach { it.deleteRecursively() }
                                 }
